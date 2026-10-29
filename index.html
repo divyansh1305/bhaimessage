@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta property="og:title" content="Behna, ek minute doge?">
+<meta property="og:description" content="Tumhare bhai ki taraf se ❤">
+<title>Sorry, Behna</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Karla:wght@400;600&display=swap">
+<style>
+/* Layout: a fixed illustration of bhai & behen joined by a broken rakhi thread; the letter plays beneath and the thread mends as it goes */
+:root{
+  --night:#141226; --dusk:#221d3d; --ink:#f3ecdf; --muted:#b7aec9;
+  --marigold:#f2a33a; --flame:#ffd27a; --rose:#e8789a; --skin:#3b2f55;
+  --display:"Young Serif",Georgia,serif; --body:"Karla",system-ui,sans-serif;
+  color-scheme:dark;
+}
+html,body{height:100%}
+body{margin:0;background:radial-gradient(120% 80% at 50% 110%,#3a2440 0%,var(--dusk) 42%,var(--night) 100%) fixed,var(--night);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;overflow-x:hidden;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+#stars,#petals{position:fixed;inset:0;pointer-events:none}
+#stars{z-index:0}#petals{z-index:3}
+main{position:relative;z-index:1;min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding-block:28px 40px}
+.pair{width:min(360px,100%);max-width:100%}
+.pair svg{width:100%;height:auto;display:block;overflow:visible}
+.scene{max-width:34rem;width:100%;text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px;animation:rise .8s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+h1,h2{font-family:var(--display);font-weight:400;text-wrap:balance;margin:0;line-height:1.2}
+h1{font-size:clamp(1.9rem,7vw,2.8rem)}
+h2{font-size:clamp(1.45rem,5.5vw,2rem)}
+p{margin:0;color:var(--muted);max-width:30rem}
+.big{color:var(--ink);font-size:1.12rem}
+.eyebrow{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--marigold)}
+.tag{font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:var(--rose)}
+button{font:600 1rem var(--body);cursor:pointer;border-radius:999px;padding:14px 28px;border:1.5px solid var(--marigold);background:var(--marigold);color:#2a1a08;transition:transform .2s,box-shadow .2s}
+button:hover{transform:translateY(-2px);box-shadow:0 8px 28px -8px var(--marigold)}
+button:focus-visible,.knot:focus-visible{outline:3px solid var(--flame);outline-offset:3px}
+button.ghost{background:transparent;color:var(--ink);border-color:var(--muted)}
+.row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.line{font-family:var(--display);font-size:clamp(1.2rem,4.6vw,1.6rem);color:var(--ink);line-height:1.5;min-height:6.2em;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.line .cur{display:inline-block;width:2px;height:1em;background:var(--marigold);margin-left:3px;vertical-align:-.12em;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.soft{font-size:.85rem;color:var(--muted)}
+.next{opacity:0;pointer-events:none;transition:opacity .4s}
+.next.show{opacity:1;pointer-events:auto}
+.sound{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));right:calc(12px + env(safe-area-inset-right,0px));z-index:4;padding:8px 14px;font-size:.8rem;background:rgba(20,18,38,.6);color:var(--ink);border-color:rgba(183,174,201,.5)}
+.knot{width:84px;height:84px;border-radius:50%;border:2px dashed var(--rose);background:transparent;display:grid;place-items:center;cursor:pointer;touch-action:none;user-select:none;-webkit-user-select:none;position:relative}
+.knot span{width:0;height:0;border-radius:50%;background:radial-gradient(circle,var(--flame),var(--rose));transition:width .08s linear,height .08s linear}
+.count{font-family:var(--display);font-size:2.4rem;color:var(--flame);font-variant-numeric:tabular-nums}
+/* thread animation */
+#thread{transition:stroke-dashoffset 1.2s ease}
+.glowing{filter:drop-shadow(0 0 6px #ffd27a)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<canvas id="stars"></canvas>
+<canvas id="petals"></canvas>
+<button class="sound ghost" id="sound" hidden>♪ Music on</button>
+
+<main>
+  <div class="pair" aria-hidden="true">
+    <svg viewBox="0 0 360 200">
+      <defs>
+        <radialGradient id="halo" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffd27a" stop-opacity=".35"/><stop offset="1" stop-color="#ffd27a" stop-opacity="0"/></radialGradient>
+      </defs>
+      <ellipse cx="180" cy="190" rx="150" ry="10" fill="#000" opacity=".25"/>
+      <circle id="halo" cx="180" cy="110" r="90" fill="url(#halo)" opacity="0" style="transition:opacity 1.5s"/>
+      <!-- bhai -->
+      <g fill="#4a3b6b">
+        <circle cx="88" cy="52" r="20"/>
+        <path d="M70 46 Q88 26 108 44 Q100 36 88 36 Q76 38 70 46Z" fill="#2b2242"/>
+        <path d="M62 80 Q88 70 114 80 L120 150 L56 150Z"/>
+        <rect x="62" y="148" width="16" height="40" rx="7"/><rect x="98" y="148" width="16" height="40" rx="7"/>
+        <path id="bArm" d="M112 86 Q132 104 146 116" stroke="#4a3b6b" stroke-width="13" stroke-linecap="round" fill="none"/>
+      </g>
+      <!-- behen -->
+      <g fill="#6b4a6e">
+        <circle cx="272" cy="66" r="17"/>
+        <path d="M256 60 Q272 42 290 60 Q292 82 300 98 Q288 92 286 74 Q272 54 258 74 Z" fill="#2b2242"/>
+        <path d="M252 92 Q272 84 292 92 L304 160 L240 160Z" fill="#7a4d72"/>
+        <path d="M244 126 Q272 120 300 126" stroke="#f2a33a" stroke-width="3" fill="none" opacity=".7"/>
+        <rect x="252" y="158" width="13" height="30" rx="6"/><rect x="280" y="158" width="13" height="30" rx="6"/>
+        <path id="sArm" d="M254 98 Q236 110 220 116" stroke="#6b4a6e" stroke-width="11" stroke-linecap="round" fill="none"/>
+      </g>
+      <!-- rakhi thread, broken in middle -->
+      <path d="M146 116 Q160 122 172 118" stroke="#e8789a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <path d="M220 116 Q206 122 194 118" stroke="#e8789a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <path id="thread" d="M172 118 Q183 128 194 118" stroke="#e8789a" stroke-width="3.5" fill="none" stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/>
+      <g id="rakhiFlower" transform="translate(183 124)" opacity="0" style="transition:opacity 1s">
+        <circle r="9" fill="#f2a33a"/><circle r="4" fill="#ffd27a"/>
+        <g fill="#e8789a"><circle cx="0" cy="-11" r="4"/><circle cx="11" cy="0" r="4"/><circle cx="0" cy="11" r="4"/><circle cx="-11" cy="0" r="4"/></g>
+      </g>
+    </svg>
+  </div>
+  <div id="stage" style="width:100%;display:flex;justify-content:center"></div>
+</main>
+
+<script>
+const stage=document.getElementById('stage');
+const thread=document.getElementById('thread');
+const BDAY=new Date(2026,9,31);
+const rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+const lines=[
+ {tag:"kal", t:"Kal jo hua… tab se dil bahut bhaari hai. Tumse baat kiye bina ek din bhi ajeeb lag raha hai."},
+ {tag:"bharosa", t:"Tum mujhe sab kuch batati ho, kyunki main tumhara bhai hoon. Aur kal maine us bharose ko thes pahunchayi."},
+ {tag:"bas itna", t:"Zyada explain nahi karunga, tum jaanti ho. Bas itna: jaisa dikha, waisa maine socha nahi tha. Kuch misunderstanding thi."},
+ {tag:"par", t:"Par misunderstanding meri galti ko chhota nahi karti. Tumhe hurt hua, aur woh mere wajah se hua."},
+ {tag:"sorry", t:"Isliye bina kisi bahane ke… sorry behna. Dil se. Main galat tha."},
+ {tag:"rishta", t:"Khoon ka rishta nahi hai hamara. Par college mein tum mili, aur mujhe ek behen mil gayi. Yeh rishta dil ne chuna tha, aur main ise kabhi khona nahi chahta."},
+ {tag:"promise", t:"Tum mujhe bhai maanti ho, sab kuch share karti ho. Yeh mere liye bahut badi baat hai. Promise, is bharose ke laayak banke dikhaunga."}
+];
+
+function scene(html){stage.innerHTML='<section class="scene">'+html+'</section>';}
+function mend(frac){thread.style.strokeDashoffset=100-frac*100;}
+
+/* ---------- soft music box (original melody, Web Audio) ---------- */
+let ac=null,master=null,playing=false,timer=null;
+const melody=[0,4,7,9,7,4,2,4, 0,2,4,7,4,2,0,-1, 0,4,7,12,11,9,7,4, 5,4,2,0,2,4,0,-1];
+function note(f,t,d){const o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.value=f;
+ g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.18,t+.01);g.gain.exponentialRampToValueAtTime(.0008,t+d);
+ o.connect(g);g.connect(master);o.start(t);o.stop(t+d+.05);
+ const o2=ac.createOscillator(),g2=ac.createGain();o2.type='sine';o2.frequency.value=f*2;g2.gain.setValueAtTime(0,t);g2.gain.linearRampToValueAtTime(.04,t+.01);g2.gain.exponentialRampToValueAtTime(.0008,t+d*.6);o2.connect(g2);g2.connect(master);o2.start(t);o2.stop(t+d);}
+function loop(){const base=392,beat=.62;let t=ac.currentTime+.05;
+ melody.forEach((s,i)=>{if(s>=0)note(base*Math.pow(2,s/12),t+i*beat,2.2);if(i%8===0)note(base/2*Math.pow(2,[0,9,5,7][(i/8)|0]/12),t+i*beat,4);});
+ timer=setTimeout(()=>playing&&loop(),melody.length*beat*1000);}
+function startMusic(){try{if(!ac){ac=new (window.AudioContext||window.webkitAudioContext)();master=ac.createGain();master.gain.value=.6;master.connect(ac.destination);}
+ ac.resume();if(!playing){playing=true;loop();}setBtn();}catch(e){}}
+function stopMusic(){playing=false;clearTimeout(timer);try{master.gain.setTargetAtTime(0,ac.currentTime,.3);setTimeout(()=>{if(!playing)master.gain.value=.6},900)}catch(e){}setBtn();}
+const sb=document.getElementById('sound');
+function setBtn(){sb.hidden=false;sb.textContent=playing?'♪ Music on':'♪ Music off';}
+sb.onclick=()=>playing?stopMusic():startMusic();
+
+/* ---------- scenes ---------- */
+function intro(){
+ mend(0);
+ scene(`<span class="eyebrow">tumhare bhai ki taraf se</span>
+ <h1>Behna, ek minute doge?</h1>
+ <p class="big">Kal ke baad seedha bolne ki himmat nahi hui. Isliye yeh banaya. Bas sun lo.</p>
+ <button id="go">Okay, bolo</button>
+ <span class="soft">Thoda music ke saath padhna 🎧</span>`);
+ document.getElementById('go').onclick=()=>{startMusic();letter(0);};
+}
+
+function letter(i){
+ const L=lines[i];
+ scene(`<span class="tag">${L.tag}</span>
+ <div class="line" id="ln" aria-live="polite"></div>
+ <button class="next" id="next">${i<lines.length-1?'Aage':'Ek aakhri baat'}</button>
+ <span class="soft">${i+1} / ${lines.length}</span>`);
+ const ln=document.getElementById('ln'),nx=document.getElementById('next');
+ let k=0,done=false,iv;
+ const finish=()=>{done=true;clearInterval(iv);ln.textContent=L.t;nx.classList.add('show');mend((i+1)/(lines.length+1));};
+ if(rm)finish();else iv=setInterval(()=>{k++;ln.innerHTML=L.t.slice(0,k)+'<span class="cur"></span>';if(k>=L.t.length)finish();},38);
+ ln.onclick=()=>{if(!done)finish();};
+ nx.onclick=()=> i<lines.length-1?letter(i+1):knot();
+}
+
+function knot(){
+ scene(`<h2>Dhaaga kal toot gaya tha.</h2>
+ <p class="big">Maine apni taraf se jodne ki koshish ki hai. Aakhri gaanth tum baandh do?</p>
+ <div class="knot" id="k" role="button" tabindex="0" aria-label="Press and hold to tie the knot"><span id="ks"></span></div>
+ <span class="soft" id="hint">Gaanth pe press karke hold karo</span>`);
+ const k=document.getElementById('k'),ks=document.getElementById('ks');
+ let p=0,t=null,done=false;
+ const paint=()=>{ks.style.width=ks.style.height=(p*.66)+'px';mend((lines.length+p/100)/(lines.length+1));};
+ const start=e=>{e.preventDefault();if(done)return;clearInterval(t);t=setInterval(()=>{p=Math.min(100,p+2.2);paint();
+   if(p>=100){done=true;clearInterval(t);tied();}},40);};
+ const stop=()=>{if(done)return;clearInterval(t);t=setInterval(()=>{p=Math.max(0,p-4);paint();if(!p)clearInterval(t);},40);};
+ k.addEventListener('pointerdown',start);['pointerup','pointerleave','pointercancel'].forEach(ev=>k.addEventListener(ev,stop));
+ k.addEventListener('keydown',e=>{if((e.key===' '||e.key==='Enter')&&!e.repeat)start(e)});k.addEventListener('keyup',stop);
+}
+
+function tied(){
+ mend(1);thread.classList.add('glowing');
+ document.getElementById('rakhiFlower').style.opacity=1;
+ document.getElementById('halo').style.opacity=1;
+ setTimeout(ask,1400);
+}
+
+function ask(){
+ scene(`<h2>Toh… maaf kiya?</h2>
+ <p>Koi pressure nahi. Jo bhi bolo, main samjhunga.</p>
+ <div class="row"><button id="yes">Haan, maaf kiya</button><button class="ghost" id="no">Abhi bhi gussa hoon</button></div>`);
+ document.getElementById('yes').onclick=forgiven;
+ document.getElementById('no').onclick=()=>{scene(`<h2>Theek hai. Haq hai tumhara.</h2>
+  <p class="big">Gussa karo, daanto, jo karna hai karo. Main kahin nahi ja raha.</p>
+  <p>Jab mann ho, bas ek baar "bhai" bol dena. Main wahin milunga.</p>
+  <button class="ghost" id="back">Phir se gaanth baandho</button>`);document.getElementById('back').onclick=knot;};
+}
+
+function forgiven(){
+ petals();
+ const now=new Date();const days=Math.round((BDAY-new Date(now.getFullYear(),now.getMonth(),now.getDate()))/864e5);
+ const cd= days>0?`<span class="count">${days} ${days===1?'din':'din'}</span><p>tumhare birthday mein</p>`:
+   (days===0?`<span class="count">Happy Birthday, behna!</span>`:'');
+ scene(`<span class="eyebrow">thank you</span>
+ <h1>Meri behna ki muskaan wapas.</h1>
+ <p class="big">Promise, aage se zyada sununga, kam react karunga, aur tumhe kabhi aisa feel nahi hone dunga.</p>
+ ${cd}
+ <p>Tumhara birthday sab ke saath, hanste hue, pehle jaisa hona chahiye. Usse special banana meri zimmedari. Cake mera 🎂</p>
+ <p class="big" style="font-family:var(--display)">Love you, pagal. — Tumhara Bhai</p>`);
+}
+
+/* stars */
+(function(){const c=document.getElementById('stars'),x=c.getContext('2d');let s=[];
+ function size(){c.width=innerWidth;c.height=innerHeight;s=Array.from({length:90},()=>({x:Math.random()*c.width,y:Math.random()*c.height*.75,r:Math.random()*1.3+.2,p:Math.random()*6}));}
+ size();addEventListener('resize',size);
+ (function f(t){x.clearRect(0,0,c.width,c.height);s.forEach(a=>{x.globalAlpha=.35+.35*Math.sin(t/900+a.p);x.fillStyle='#f3ecdf';x.beginPath();x.arc(a.x,a.y,a.r,0,7);x.fill();});if(!rm)requestAnimationFrame(f);})(0);})();
+
+/* marigold & rose petals */
+function petals(){if(rm)return;const c=document.getElementById('petals'),x=c.getContext('2d');c.width=innerWidth;c.height=innerHeight;
+ const cols=['#f2a33a','#ffb84d','#e8789a','#ff8c42'];
+ const P=Array.from({length:120},()=>({x:Math.random()*c.width,y:-20-Math.random()*c.height,v:1+Math.random()*2,r:4+Math.random()*5,a:Math.random()*6,s:(Math.random()-.5)*.08,c:cols[Math.random()*4|0]}));
+ let n=0;(function f(){x.clearRect(0,0,c.width,c.height);P.forEach(p=>{p.y+=p.v;p.x+=Math.sin(p.a)*.8;p.a+=p.s+.02;
+  x.save();x.translate(p.x,p.y);x.rotate(p.a);x.fillStyle=p.c;x.beginPath();x.ellipse(0,0,p.r,p.r*.55,0,0,7);x.fill();x.restore();});
+  if(++n<560)requestAnimationFrame(f);else x.clearRect(0,0,c.width,c.height);})();}
+
+intro();
+</script>
+
+</body>
+</html>
